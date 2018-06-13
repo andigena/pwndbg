@@ -155,7 +155,9 @@ def connect(func, event_handler, name=''):
             path = objfile.filename
 
             if path in objfile_cache:
+                print('SILENTING new_objfile for {}  {}'.format(func, path))
                 return
+            print('DISPATCHING new_objfile pause={} for {}  {}'.format(pause, func, path))
 
             # print(path, objfile.is_valid())
 
@@ -235,6 +237,11 @@ def on_reload():
 @new_objfile
 def _start_newobjfile():
     gdb.events.start.on_new_objfile()
+
+
+@new_objfile
+def im_just_a_print():
+    print('!!! NOTICE ME IN THE OUTPUT !!!')
 
 
 @exit
